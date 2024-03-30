@@ -1,10 +1,10 @@
 import "./App.css";
-import Accordion from "./Components/Accordion/Accordion";
+import Accordion from "./Components/C_Component/Accordion";
 
 function App() {
   return (
     <>
-      <Accordion />
+      <Accordion/>
     </>
   );
 }
