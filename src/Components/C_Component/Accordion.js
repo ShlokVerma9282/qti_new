@@ -13,14 +13,14 @@ export default function Accordion() {
     };
 
     return (
-        <div className="p-3">
-            <div key={0} className="border-2 border-sky-500 mb-4 rounded">
+        <div className="p-3 m-2">
+            <div key={0} className="border-2 mb-4 rounded-md">
                 {/* Accordion header */}
                 <AccordionHeader
                     toggleAccordion={toggleAccordion}
-                    elementIndex = {0}
-                    activeIndex = {activeIndex}
-                    title = "Course Info"
+                    elementIndex={0}
+                    activeIndex={activeIndex}
+                    title="Course Info"
                 />
                 {/* Accordion content */}
                 {activeIndex === 0 && (
@@ -36,13 +36,13 @@ export default function Accordion() {
                     </div>
                 )}
             </div>
-            <div key={1} className="border-2 border-sky-500 mb-4 rounded">
+            <div key={1} className="border-2 mb-4 rounded-md">
                 {/* Accordion header */}
                 <AccordionHeader
                     toggleAccordion={toggleAccordion}
-                    elementIndex = {1}
-                    activeIndex = {activeIndex}
-                    title = "Course Info Video"
+                    elementIndex={1}
+                    activeIndex={activeIndex}
+                    title="Course Info Video"
                 />
                 {/* Accordion content */}
                 {activeIndex === 1 && (
@@ -58,13 +58,13 @@ export default function Accordion() {
                     </div>
                 )}
             </div>
-            <div key={2} className="border-2 border-sky-500 mb-4 rounded">
+            <div key={2} className="border-2 mb-4 rounded-md">
                 {/* Accordion header */}
                 <AccordionHeader
                     toggleAccordion={toggleAccordion}
-                    elementIndex = {2}
-                    activeIndex = {activeIndex}
-                    title = "Course Builder"
+                    elementIndex={2}
+                    activeIndex={activeIndex}
+                    title="Course Builder"
                 />
                 {/* Accordion content */}
                 {activeIndex === 2 && (
@@ -80,13 +80,13 @@ export default function Accordion() {
                     </div>
                 )}
             </div>
-            <div key={3} className="border-2 border-sky-500 mb-4 rounded">
+            <div key={3} className="border-2 mb-4 rounded-md">
                 {/* Accordion header */}
                 <AccordionHeader
                     toggleAccordion={toggleAccordion}
-                    elementIndex = {3}
-                    activeIndex = {activeIndex}
-                    title = "Additional Information"
+                    elementIndex={3}
+                    activeIndex={activeIndex}
+                    title="Additional Information"
                 />
                 {/* Accordion content */}
                 {activeIndex === 3 && (
@@ -102,13 +102,13 @@ export default function Accordion() {
                     </div>
                 )}
             </div>
-            <div key={4} className="border-2 border-sky-500 mb-4 rounded">
+            <div key={4} className="border-2 mb-4 rounded-md">
                 {/* Accordion header */}
                 <AccordionHeader
                     toggleAccordion={toggleAccordion}
-                    elementIndex = {4}
-                    activeIndex = {activeIndex}
-                    title = "Certificate Template"
+                    elementIndex={4}
+                    activeIndex={activeIndex}
+                    title="Certificate Template"
                 />
                 {/* Accordion content */}
                 {activeIndex === 4 && (
