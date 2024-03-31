@@ -1,5 +1,7 @@
 import { useState } from "react";
 import AccordionHeader from "./AccordionHeader";
+import C2 from "../C2_Component";
+import C3 from "../C3_Component";
 
 export default function Accordion() {
 
@@ -10,6 +12,8 @@ export default function Accordion() {
     // Function to toggle accordion item
     const toggleAccordion = (index) => {
         setActiveIndex(index === activeIndex ? null : index);
+        console.log(activeIndex);
+        console.log(index);
     };
 
     return (
@@ -42,20 +46,11 @@ export default function Accordion() {
                     toggleAccordion={toggleAccordion}
                     elementIndex={1}
                     activeIndex={activeIndex}
-                    title="Course Info Video"
+                    title="Course Intro Video"
                 />
                 {/* Accordion content */}
                 {activeIndex === 1 && (
-                    <div className="p-4 bg-white">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Morbi facilisis ligula pulvinar libero dapibus, eget
-                        pulvinar mi commodo. Donec ac consectetur ante.
-                        Praesent sollicitudin sapien et convallis egestas.
-                        Nam non tempus purus. Nullam nec pharetra justo.
-                        Donec sit amet efficitur velit. Aliquam pulvinar,
-                        turpis a egestas lacinia, dolor mi varius leo,
-                        vel lobortis eros ex nec est.
-                    </div>
+                    <C2 />
                 )}
             </div>
             <div key={2} className="border-2 mb-4 rounded-md">
@@ -68,16 +63,7 @@ export default function Accordion() {
                 />
                 {/* Accordion content */}
                 {activeIndex === 2 && (
-                    <div className="p-4 bg-white">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Morbi facilisis ligula pulvinar libero dapibus, eget
-                        pulvinar mi commodo. Donec ac consectetur ante.
-                        Praesent sollicitudin sapien et convallis egestas.
-                        Nam non tempus purus. Nullam nec pharetra justo.
-                        Donec sit amet efficitur velit. Aliquam pulvinar,
-                        turpis a egestas lacinia, dolor mi varius leo,
-                        vel lobortis eros ex nec est.
-                    </div>
+                    <C3/>
                 )}
             </div>
             <div key={3} className="border-2 mb-4 rounded-md">
