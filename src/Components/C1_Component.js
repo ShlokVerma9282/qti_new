@@ -53,7 +53,7 @@ export default function C1() {
                     <div className="mb-4">
                         <label htmlFor="course-slug" className="block mb-2 font-bold">Course Slug</label>
                         <input type="text" id="course-slug" className="w-full border-2 border-gray-300 p-2 rounded-lg" placeholder="Enter course slug" />
-                        <p style={{ color: "grey" }}>©Permalink:https://yourdomain.com/new-course
+                        <p style={{ color: "grey" }}>© Permalink:https://yourdomain.com/new-course
                         </p>
                     </div>
                     <div className="mb-4">
@@ -61,7 +61,6 @@ export default function C1() {
                         <input type="text" id="course-permalink" className="w-full h-32  border-2 border-gray-300 p-2 rounded-lg" />
                         <p style={{ color: "grey" }}>© HTML or plain text allowed, no emoji This field is used for search, so please be descriptive!</p>
                     </div>
-                    <button className="bg-blue-500 text-white px-5 py-2 rounded-lg">Create Course</button>
                     <h1 className="text-lg font-bold text-black mt-6">Course Setting</h1>
                     <div className="m-5 flex items-center">
                         <div className="flex flex-col px-5 py-4 rounded-lg">
