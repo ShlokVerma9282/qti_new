@@ -1,5 +1,6 @@
 import { useState } from "react";
 import AccordionHeader from "./AccordionHeader";
+import C1 from "../C1_Component";
 import C2 from "../C2_Component";
 import C3 from "../C3_Component";
 
@@ -12,8 +13,6 @@ export default function Accordion() {
     // Function to toggle accordion item
     const toggleAccordion = (index) => {
         setActiveIndex(index === activeIndex ? null : index);
-        console.log(activeIndex);
-        console.log(index);
     };
 
     return (
@@ -28,16 +27,7 @@ export default function Accordion() {
                 />
                 {/* Accordion content */}
                 {activeIndex === 0 && (
-                    <div className="p-4 bg-white">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Morbi facilisis ligula pulvinar libero dapibus, eget
-                        pulvinar mi commodo. Donec ac consectetur ante.
-                        Praesent sollicitudin sapien et convallis egestas.
-                        Nam non tempus purus. Nullam nec pharetra justo.
-                        Donec sit amet efficitur velit. Aliquam pulvinar,
-                        turpis a egestas lacinia, dolor mi varius leo,
-                        vel lobortis eros ex nec est.
-                    </div>
+                    <C1/>
                 )}
             </div>
             <div key={1} className="border-2 mb-4 rounded-md">
