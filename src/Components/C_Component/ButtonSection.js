@@ -1,4 +1,4 @@
-export default function Footer() {
+export default function Footer(props) {
     return (
         <div className="p-2 m-4 mt-0 py-0">
             <div className="grid grid-cols-3 gap-4">
@@ -9,8 +9,9 @@ export default function Footer() {
                 </button>
                 <button className="col-span-2 p-4  
                 bg-gradient-to-tr from-blue-500 to bg-purple-500 
-                text-white rounded-md font-sans font-medium text-lg">
-                    Create Course 
+                text-white rounded-md font-sans font-medium text-lg"
+                onClick={()=>props.handleSubmit()}>
+                    Create Project 
                     <i className="fa-solid fa-arrow-right pl-2" style={{color: "#fcfcfc"}}></i>
                 </button>
             </div>
