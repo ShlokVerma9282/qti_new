@@ -5,16 +5,16 @@ import C2 from "../C2_Component";
 import C3 from "../C3_Component";
 import C4 from "../C4_Component";
 
-export default function Accordion(props) {
+export default function Accordion() {
 
     // State to track which accordion item is active
     const [activeIndex, setActiveIndex] = useState(null);
-
+    //https://purecode.ai/blogs/tailwind-accordion/
+    //https://www.geeksforgeeks.org/accordion-template-using-reactjs-and-tailwind/
+    // Function to toggle accordion item
     const toggleAccordion = (index) => {
         setActiveIndex(index === activeIndex ? null : index);
     };
-
-    const handleInfoChange = projectInfo => props.setProject({...props.project, ...projectInfo});
 
     return (
         <div className="p-3 m-2">
@@ -24,12 +24,11 @@ export default function Accordion(props) {
                     toggleAccordion={toggleAccordion}
                     elementIndex={0}
                     activeIndex={activeIndex}
-                    sectionTitle="Project Info"
+                    title="Project Info"
                 />
                 {/* Accordion content */}
                 {activeIndex === 0 && (
-                    <C1 sectionSubmit={handleInfoChange}
-                        toggleAccordion={toggleAccordion} />
+                    <C1/>
                 )}
             </div>
             <div key={1} className="border-2 mb-4 rounded-md">
@@ -38,7 +37,7 @@ export default function Accordion(props) {
                     toggleAccordion={toggleAccordion}
                     elementIndex={1}
                     activeIndex={activeIndex}
-                    sectionTitle="Project Intro Video"
+                    title="Project Intro Video"
                 />
                 {/* Accordion content */}
                 {activeIndex === 1 && (
@@ -51,11 +50,11 @@ export default function Accordion(props) {
                     toggleAccordion={toggleAccordion}
                     elementIndex={2}
                     activeIndex={activeIndex}
-                    sectionTitle="Project Builder"
+                    title="Project Builder"
                 />
                 {/* Accordion content */}
                 {activeIndex === 2 && (
-                    <C3 />
+                    <C3/>
                 )}
             </div>
             <div key={3} className="border-2 mb-4 rounded-md">
@@ -64,11 +63,11 @@ export default function Accordion(props) {
                     toggleAccordion={toggleAccordion}
                     elementIndex={3}
                     activeIndex={activeIndex}
-                    sectionTitle="Project Price"
+                    title="Project Price"
                 />
                 {/* Accordion content */}
                 {activeIndex === 3 && (
-                    <C4 />
+                    <C4/>
                 )}
             </div>
             <div key={4} className="border-2 mb-4 rounded-md">
@@ -77,7 +76,7 @@ export default function Accordion(props) {
                     toggleAccordion={toggleAccordion}
                     elementIndex={4}
                     activeIndex={activeIndex}
-                    sectionTitle="Additional Information"
+                    title="Additional Information"
                 />
                 {/* Accordion content */}
                 {activeIndex === 4 && (
@@ -99,7 +98,7 @@ export default function Accordion(props) {
                     toggleAccordion={toggleAccordion}
                     elementIndex={5}
                     activeIndex={activeIndex}
-                    sectionTitle="Certificate Template"
+                    title="Certificate Template"
                 />
                 {/* Accordion content */}
                 {activeIndex === 5 && (
