@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useContext } from "react";
+import { ProjectContext } from "../ProjectContext";
 import AccordionHeader from "./AccordionHeader";
 import C1 from "../C1_Component";
 import C2 from "../C2_Component";
@@ -7,14 +8,12 @@ import C4 from "../C4_Component";
 
 export default function Accordion(props) {
 
-    // State to track which accordion item is active
-    const [activeIndex, setActiveIndex] = useState(null);
+    // Getting activeIndex value from context
+    const {activeIndex, setActiveIndex} = useContext(ProjectContext)
 
     const toggleAccordion = (index) => {
         setActiveIndex(index === activeIndex ? null : index);
     };
-
-    const handleInfoChange = projectInfo => props.setProject({...props.project, ...projectInfo});
 
     return (
         <div className="p-3 m-2">
@@ -28,8 +27,10 @@ export default function Accordion(props) {
                 />
                 {/* Accordion content */}
                 {activeIndex === 0 && (
-                    <C1 sectionSubmit={handleInfoChange}
-                        toggleAccordion={toggleAccordion} />
+                    <C1
+                        toggleAccordion={toggleAccordion}
+                        elementIndex={0}
+                    />
                 )}
             </div>
             <div key={1} className="border-2 mb-4 rounded-md">

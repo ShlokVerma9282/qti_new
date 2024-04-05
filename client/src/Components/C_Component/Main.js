@@ -1,11 +1,22 @@
 import Accordion from "./Accordion";
-import Footer from "./ButtonSection";
+import Footer from "./MainFooter";
+import { ProjectContext } from "../ProjectContext";
 import { useState } from "react";
 import axios from 'axios';
 
 export default function C_COMPONENT() {
 
-    const [project, setProject] = useState({})
+    const defaultProject = {
+        title: "",
+        slug: "",
+        about: ""
+    }
+
+    // Setting project and active accordion item
+    const [project, setProject] = useState({ ...defaultProject });
+    const [activeIndex, setActiveIndex] = useState(null);
+
+    // function to be called on clicking create-project button
     const handleSubmit = () => {
         axios.post("http://localhost:8000/project/create", {
             ...project
@@ -13,6 +24,7 @@ export default function C_COMPONENT() {
             .then((response) => {
                 console.log(response);
                 setProject({});
+                setActiveIndex(null);
             })
             .catch(error => {
                 window.alert("Error occurred while creating project!");
@@ -31,8 +43,10 @@ export default function C_COMPONENT() {
 
     return (
         <div className="p-8">
-            <Accordion project={project} setProject={setProject} />
-            <Footer handleSubmit={handleSubmit} />
+            <ProjectContext.Provider value={{project, setProject, activeIndex, setActiveIndex}}>
+                <Accordion />
+                <Footer handleSubmit={handleSubmit} />
+            </ProjectContext.Provider>
         </div>
     )
 }

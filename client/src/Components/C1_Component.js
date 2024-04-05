@@ -1,9 +1,21 @@
 import { useState } from "react";
-
+import { useContext } from "react";
+import { ProjectContext } from "./ProjectContext";
+import Footer from "./C_All_Footer";
 export default function C1(props) {
+
+    // Provide a valid URL for your default image
+    const defaultBackgroundImage = 'https://www.shutterstock.com/image-vector/default-ui-image-placeholder-wireframes-600nw-1037719192.jpg';
+
+    // Destructuring context
+    const { project } = useContext(ProjectContext);
+
+    // States in this component
     const [activeButton, setActiveButton] = useState("button1");
     const [selectedFile, setSelectedFile] = useState(null);
-    const defaultBackgroundImage = 'https://www.shutterstock.com/image-vector/default-ui-image-placeholder-wireframes-600nw-1037719192.jpg'; // Provide a valid URL for your default image
+    const [title, setTitle] = useState(project.title);
+    const [slug, setSlug] = useState(project.slug);
+    const [about, setAbout] = useState(project.about);
 
     const handleFileInputChange = (event) => {
         const file = event.target.files[0];
@@ -36,22 +48,14 @@ export default function C1(props) {
     };
 
     const handleImageClick = () => {
-
         console.log('Image clicked');
     };
-
-    const [title, setTitle] = useState("");
-    const [slug, setSlug] = useState("");
-    const [about, setAbout] = useState("");
-
-    const handleInfoSubmit = () => {
-        props.sectionSubmit({ title, slug, about });
-        props.toggleAccordion(0);
-    }
 
     return (
         <div className="bg-gray-100 ">
             <div className="container mx-auto p-4">
+
+                {/* Title Input */}
                 <div className="mb-4">
                     <label htmlFor="course-title" className="block mb-2 font-bold ">Project Title</label>
                     <input type="text" id="course-title" value={title}
@@ -60,6 +64,8 @@ export default function C1(props) {
                         onChange={(event) => setTitle(event.target.value)} />
                     <p style={{ color: "grey" }}>© Title should be 30 character</p>
                 </div>
+
+                {/* Slug Input */}
                 <div className="mb-4">
                     <label htmlFor="course-slug" className="block mb-2 font-bold">Project Slug</label>
                     <input type="text" id="course-slug" value={slug}
@@ -69,6 +75,8 @@ export default function C1(props) {
                     <p style={{ color: "grey" }}>© Permalink:https://yourdomain.com/new-course
                     </p>
                 </div>
+
+                {/* About Input */}
                 <div className="mb-4">
                     <label htmlFor="course-permalink" className="block mb-2 font-bold">About Project</label>
                     <input type="text" id="course-permalink" value={about}
@@ -76,7 +84,8 @@ export default function C1(props) {
                         onChange={(event) => setAbout(event.target.value)} />
                     <p style={{ color: "grey" }}>© HTML or plain text allowed, no emoji This field is used for search, so please be descriptive!</p>
                 </div>
-                <button className="mt-2 bg-blue-500 text-white px-5 py-2 rounded-lg" onClick={() => handleInfoSubmit()}>Submit</button>
+
+                {/* Settings section */}
                 <h1 className="text-lg font-bold text-black mt-6">Project Setting</h1>
                 <div className="m-5 flex items-center">
                     <div className="flex flex-col px-5 py-4 rounded-lg">
@@ -267,9 +276,11 @@ export default function C1(props) {
                             )}
                         </div>
                     </div>
-                    <h1 style={{ color: "grey" }}>© Size: 700×430 pixels, File Support: JPG, JPEG, PNG, GIF,</h1>
+                    <h1 style={{ color: "gray" }}>© Size: 700×430 pixels, File Support: JPG, JPEG, PNG, GIF,</h1>
                 </div>
-                {/* </div> */}
+
+                <Footer metadata={{ ...props, formChanges: { title, slug, about } }} />
+
             </div>
         </div>
     );
