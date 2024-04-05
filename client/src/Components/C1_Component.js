@@ -1,9 +1,21 @@
 import { useState } from "react";
+import { useContext } from "react";
+import { ProjectContext } from "./ProjectContext";
+import Footer from "./C_All_Footer";
+export default function C1(props) {
 
-export default function C1() {
+    // Provide a valid URL for your default image
+    const defaultBackgroundImage = 'https://www.shutterstock.com/image-vector/default-ui-image-placeholder-wireframes-600nw-1037719192.jpg';
+
+    // Destructuring context
+    const { project } = useContext(ProjectContext);
+
+    // States in this component
     const [activeButton, setActiveButton] = useState("button1");
     const [selectedFile, setSelectedFile] = useState(null);
-    const defaultBackgroundImage = 'https://www.shutterstock.com/image-vector/default-ui-image-placeholder-wireframes-600nw-1037719192.jpg'; // Provide a valid URL for your default image
+    const [title, setTitle] = useState(project.title);
+    const [slug, setSlug] = useState(project.slug);
+    const [about, setAbout] = useState(project.about);
 
     const handleFileInputChange = (event) => {
         const file = event.target.files[0];
@@ -36,18 +48,65 @@ export default function C1() {
     };
 
     const handleImageClick = () => {
-
         console.log('Image clicked');
     };
-
 
     return (
         <div className="bg-gray-100 ">
             <div className="container mx-auto p-4">
-                    <div className="mb-4">
-                        <label htmlFor="course-title" className="block mb-2 font-bold ">Project Title</label>
-                        <input type="text" id="course-title" className="w-full border-2 border-gray-300 p-2 rounded-lg" placeholder="Enter course title" />
-                        <p style={{ color: "grey" }}>© Title should be 30 character</p>
+
+                {/* Title Input */}
+                <div className="mb-4">
+                    <label htmlFor="course-title" className="block mb-2 font-bold ">Project Title</label>
+                    <input type="text" id="course-title" value={title}
+                        className="w-full border-2 border-gray-300 p-2 rounded-lg"
+                        placeholder="Enter course title"
+                        onChange={(event) => setTitle(event.target.value)} />
+                    <p style={{ color: "grey" }}>© Title should be 30 character</p>
+                </div>
+
+                {/* Slug Input */}
+                <div className="mb-4">
+                    <label htmlFor="course-slug" className="block mb-2 font-bold">Project Slug</label>
+                    <input type="text" id="course-slug" value={slug}
+                        className="w-full border-2 border-gray-300 p-2 rounded-lg"
+                        placeholder="Enter course slug"
+                        onChange={(event) => setSlug(event.target.value)} />
+                    <p style={{ color: "grey" }}>© Permalink:https://yourdomain.com/new-course
+                    </p>
+                </div>
+
+                {/* About Input */}
+                <div className="mb-4">
+                    <label htmlFor="course-permalink" className="block mb-2 font-bold">About Project</label>
+                    <input type="text" id="course-permalink" value={about}
+                        className="w-full h-32  border-2 border-gray-300 p-2 rounded-lg"
+                        onChange={(event) => setAbout(event.target.value)} />
+                    <p style={{ color: "grey" }}>© HTML or plain text allowed, no emoji This field is used for search, so please be descriptive!</p>
+                </div>
+
+                {/* Settings section */}
+                <h1 className="text-lg font-bold text-black mt-6">Project Setting</h1>
+                <div className="m-5 flex items-center">
+                    <div className="flex flex-col px-5 py-4 rounded-lg">
+                        <button
+                            className={`btn ${activeButton === "button1"
+                                ? "bg-blue-500 text-white"
+                                : "bg-gray-300 text-black-500 hover:bg-blue-400 hover:text-white"
+                                } w-60 h-10 py-2 px-4 rounded-full text-lg font-semibold mb-4`}
+                            onClick={() => setActiveButton("button1")}
+                        >
+                            General
+                        </button>
+                        <button
+                            className={`btn ${activeButton === "button2"
+                                ? "bg-blue-500 text-white"
+                                : "bg-gray-300 text-black-500 hover:bg-blue-400 hover:text-white"
+                                } w-60 h-10 py-2 px-4 text-lg font-semibold rounded-full`}
+                            onClick={() => setActiveButton("button2")}
+                        >
+                            Content Drip
+                        </button>
                     </div>
                     <div className="mb-4">
                         <label htmlFor="course-slug" className="block mb-2 font-bold">Project Slug</label>
@@ -252,7 +311,11 @@ export default function C1() {
                         </div>
                         <h1 style={{ color: "grey" }}>© Size: 700×430 pixels, File Support: JPG, JPEG, PNG, GIF,</h1>
                     </div>
-                {/* </div> */}
+                    <h1 style={{ color: "gray" }}>© Size: 700×430 pixels, File Support: JPG, JPEG, PNG, GIF,</h1>
+                </div>
+
+                <Footer metadata={{ ...props, formChanges: { title, slug, about } }} />
+
             </div>
         </div>
     );

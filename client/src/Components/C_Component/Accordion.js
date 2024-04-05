@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useContext } from "react";
+import { ProjectContext } from "../ProjectContext";
 import AccordionHeader from "./AccordionHeader";
 import C1 from "../C1_Component";
 import C2 from "../C2_Component";
@@ -7,11 +8,9 @@ import C4 from "../C4_Component";
 
 export default function Accordion() {
 
-    // State to track which accordion item is active
-    const [activeIndex, setActiveIndex] = useState(null);
-    //https://purecode.ai/blogs/tailwind-accordion/
-    //https://www.geeksforgeeks.org/accordion-template-using-reactjs-and-tailwind/
-    // Function to toggle accordion item
+    // Getting activeIndex value from context
+    const {activeIndex, setActiveIndex} = useContext(ProjectContext)
+
     const toggleAccordion = (index) => {
         setActiveIndex(index === activeIndex ? null : index);
     };
@@ -28,7 +27,10 @@ export default function Accordion() {
                 />
                 {/* Accordion content */}
                 {activeIndex === 0 && (
-                    <C1/>
+                    <C1
+                        toggleAccordion={toggleAccordion}
+                        elementIndex={0}
+                    />
                 )}
             </div>
             <div key={1} className="border-2 mb-4 rounded-md">
