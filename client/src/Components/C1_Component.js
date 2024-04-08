@@ -16,39 +16,52 @@ export default function C1(props) {
     const [title, setTitle] = useState(project.title);
     const [slug, setSlug] = useState(project.slug);
     const [about, setAbout] = useState(project.about);
+    const [difficulty, setDifficulty] = useState();
+    const [student, setStudent] = useState();
 
-    const handleFileInputChange = (event) => {
-        const file = event.target.files[0];
-        if (file.size <= 700 * 430 * 3 && (file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/gif' || file.type === 'image/webp')) {
-            setSelectedFile(file);
-        } else {
-            alert('Please select a file that is 700x430 pixels or smaller and is a JPG, JPEG, PNG, GIF, or WEBP file.');
+    const handleFileInputChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            checkImageDimensions(file);
         }
     };
 
-    const handleDragOver = (event) => {
-        event.preventDefault();
-        event.currentTarget.classList.add('border-4', 'border-dashed', 'border-blue-500', 'hover:bg-gray-100');
+    const handleDragOver = (e) => {
+        e.preventDefault();
     };
 
-    const handleDragLeave = (event) => {
-        event.preventDefault();
-        event.currentTarget.classList.remove('border-4', 'border-dashed', 'border-blue-500', 'hover:bg-gray-100');
+    const handleDragEnter = (e) => {
+        e.preventDefault();
     };
 
-    const handleDrop = (event) => {
-        event.preventDefault();
-        event.currentTarget.classList.remove('border-4', 'border-dashed', 'border-blue-500', 'hover:bg-gray-100');
-        const file = event.dataTransfer.files[0];
-        if (file.size <= 700 * 430 * 3 && (file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/gif' || file.type === 'image/webp')) {
-            setSelectedFile(file);
-        } else {
-            alert('Please select a file that is 700x430 pixels or smaller and is a JPG, JPEG, PNG, GIF, or WEBP file.');
+    const handleDragLeave = (e) => {
+        e.preventDefault();
+        // Get the element under the mouse pointer
+        const target = document.elementFromPoint(e.clientX, e.clientY);
+        // Check if the element is outside the drop area
+        if (!target.closest('.drop-area')) {
+            setSelectedFile(null); // Reset selected file
         }
     };
 
-    const handleImageClick = () => {
-        console.log('Image clicked');
+    const handleDrop = (e) => {
+        e.preventDefault();
+        const file = e.dataTransfer.files[0];
+        if (file) {
+            checkImageDimensions(file);
+        }
+    };
+
+    const checkImageDimensions = (file) => {
+        const image = new Image();
+        image.src = URL.createObjectURL(file);
+        image.onload = () => {
+            if (image.width === 700 && image.height === 430) {
+                setSelectedFile(file);
+            } else {
+                alert('Image dimensions must be 700x430 pixels.');
+            }
+        };
     };
 
     return (
@@ -108,6 +121,7 @@ export default function C1(props) {
                             Content Drip
                         </button>
                     </div>
+
                     {activeButton === "button1" && (
                         <div className="m-4">
                             <div className=" -mx-4">
@@ -118,14 +132,16 @@ export default function C1(props) {
                                         className="w-full h-10 border-2 border-gray-300 p-2 rounded-lg leading-tight"
                                         id="max-students"
                                         placeholder="100"
+                                        onChange={(e) => setStudent(e.target.value)}
                                     />
-                                    <p>Number of students that can enroll in this course. Set 0 for no limits</p>
+                                    <p>Number of students that can enroll in this Project. Set 0 for no limits</p>
                                 </div>
                                 <div className="w-1/2 px-4">
                                     <label className="block mb-2 font-bold">Difficulty Level</label>
                                     <select
-                                        className="w-full h-10 border-2 border-gray-300 p-2 rounded-lg leading-tight"
+                                        className="w-full border-2 border-gray-300 p-2 rounded-lg leading-tight"
                                         id="difficulty-level"
+                                        onChange={(e) => setDifficulty(e.target.value)}
                                     >
                                         <option value="all-levels">All Levels</option>
                                         <option value="beginner">Beginner</option>
@@ -144,18 +160,18 @@ export default function C1(props) {
                                                     <input
                                                         type="checkbox"
                                                         name="toggle"
-                                                        id="public-course-toggle"
+                                                        id="public-Project-toggle"
                                                         className="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer"
                                                     />
                                                     <label
-                                                        htmlFor="public-course-toggle"
+                                                        htmlFor="public-Project-toggle"
                                                         className="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"
                                                     ></label>
                                                 </div>
                                                 <span className="ml-5">Public Project</span>
                                             </div>
                                         </label>
-                                        <label className="text-gray-500" htmlFor="public-course">
+                                        <label className="text-gray-500" htmlFor="public-Project">
                                             No enrollment required.
                                         </label>
                                     </div>
@@ -180,13 +196,14 @@ export default function C1(props) {
                                             </div>
                                         </label>
                                         <label className="text-gray-500" htmlFor="enable-q-a">
-                                            Enable Q&A section for your course
+                                            Enable Q&A section for your Project
                                         </label>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     )}
+
                     {activeButton === "button2" && (
                         <div className="m-4">
                             <label className="block mb-2 text-gray-500 text-lg mt-5 ">
@@ -225,30 +242,28 @@ export default function C1(props) {
                         </div>
                     )}
                 </div>
+
                 <div className="mt-6">
                     <h1 className="block mb-2 font-bold text-lg">Project Thumbnail</h1>
-
-                    <div
-                        onClick={handleImageClick}
-                        onDragOver={handleDragOver}
-                        onDragLeave={handleDragLeave}
-                        onDrop={handleDrop}
-                        className="w-900 h-400 border-4 border-dashed border-blue-500 hover:bg-gray-100 flex flex-col justify-center items-center cursor-pointer"
-                        style={{ height: '400px' }} // Adjust height inline
-                    >
-                        <div
-                            className="flex flex-col justify-center items-center"
-                            style={{
-                                backgroundImage: `url(${selectedFile ? URL.createObjectURL(selectedFile) : defaultBackgroundImage})`,
-                                backgroundSize: 'cover',
-                                backgroundPosition: 'center',
-                                backgroundRepeat: 'no-repeat',
-                                width: '100%',
-                                height: '100%'
-                            }}
-                        >
+                    <label htmlFor="fileInput" onDragOver={handleDragOver} onDragEnter={handleDragEnter}
+                        onDragLeave={handleDragLeave} onDrop={handleDrop} className="w-900 h-600 
+                    border-4 border-dashed border-blue-500 hover:bg-gray-100 
+                    flex flex-col justify-center items-center cursor-pointer 
+                    drop-area" style={{ height: "450px" }}>
+                        <input
+                            type="file"
+                            id="fileInput"
+                            accept="image/jpeg,image/png,image/gif,image/webp"
+                            className="hidden"
+                            onChange={handleFileInputChange}
+                        />
+                        <div className="flex flex-col justify-center items-center">
                             {selectedFile ? (
-                                <p style={{ color: "grey" }}>Size: 700×430 pixels, File Support: JPG, JPEG, PNG, GIF, WEBP</p>
+                                <img
+                                    src={URL.createObjectURL(selectedFile)}
+                                    alt="Thumbnail"
+                                    className="w-full h-full object-cover"
+                                />
                             ) : (
                                 <>
                                     <svg
@@ -265,18 +280,12 @@ export default function C1(props) {
                                             d="M12 6v6m0 0v6m0-6h6m-6 0H6"
                                         />
                                     </svg>
-                                    <p className="mt-1 text-sm text-gray-600">Drag & drop your file here or click to select a file</p>
-                                    <input
-                                        type="file"
-                                        accept="image/jpeg,image/png,image/gif,image/webp"
-                                        className="hidden"
-                                        onChange={handleFileInputChange}
-                                    />
+                                    <p className="mt-1 text-sm text-gray-600">Click or drop to upload a file</p>
                                 </>
                             )}
                         </div>
-                    </div>
-                    <h1 style={{ color: "gray" }}>© Size: 700×430 pixels, File Support: JPG, JPEG, PNG, GIF,</h1>
+                    </label>
+                    <h1 style={{ color: "grey" }}>© Size: 700×430 pixels, File Support: JPG, JPEG, PNG, GIF</h1>
                 </div>
 
                 <Footer metadata={{ ...props, formChanges: { title, slug, about } }} />

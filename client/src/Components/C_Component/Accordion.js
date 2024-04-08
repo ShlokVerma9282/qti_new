@@ -8,79 +8,33 @@ import C4 from "../C4_Component";
 
 export default function Accordion() {
 
-    // Getting activeIndex value from context
-    const {activeIndex, setActiveIndex} = useContext(ProjectContext)
-
-    const toggleAccordion = (index) => {
-        setActiveIndex(index === activeIndex ? null : index);
-    };
+    const { activeIndex } = useContext(ProjectContext)
 
     return (
         <div className="p-3 m-2">
             <div key={0} className="border-2 mb-4 rounded-md">
-                {/* Accordion header */}
-                <AccordionHeader
-                    toggleAccordion={toggleAccordion}
-                    elementIndex={0}
-                    activeIndex={activeIndex}
-                    title="Project Info"
-                />
-                {/* Accordion content */}
-                {activeIndex === 0 && (
-                    <C1
-                        toggleAccordion={toggleAccordion}
-                        elementIndex={0}
-                    />
-                )}
+                <AccordionHeader elementIndex={0} title="Project Info" />
+                {activeIndex === 0 && (<C1 elementIndex={0} />)}
             </div>
+
             <div key={1} className="border-2 mb-4 rounded-md">
-                {/* Accordion header */}
-                <AccordionHeader
-                    toggleAccordion={toggleAccordion}
-                    elementIndex={1}
-                    activeIndex={activeIndex}
-                    title="Project Intro Video"
-                />
-                {/* Accordion content */}
-                {activeIndex === 1 && (
-                    <C2 />
-                )}
+                <AccordionHeader elementIndex={1} title="Project Intro Video" />
+                {activeIndex === 1 && (<C2 elementIndex={1} />)}
             </div>
+
             <div key={2} className="border-2 mb-4 rounded-md">
-                {/* Accordion header */}
-                <AccordionHeader
-                    toggleAccordion={toggleAccordion}
-                    elementIndex={2}
-                    activeIndex={activeIndex}
-                    title="Project Builder"
-                />
-                {/* Accordion content */}
-                {activeIndex === 2 && (
-                    <C3/>
-                )}
+                <AccordionHeader elementIndex={2} title="Project Builder" />
+                {activeIndex === 2 && (<C3 elementIndex={2} />)}
             </div>
+
             <div key={3} className="border-2 mb-4 rounded-md">
-                {/* Accordion header */}
-                <AccordionHeader
-                    toggleAccordion={toggleAccordion}
-                    elementIndex={3}
-                    activeIndex={activeIndex}
-                    title="Project Price"
-                />
-                {/* Accordion content */}
-                {activeIndex === 3 && (
-                    <C4/>
-                )}
+                <AccordionHeader elementIndex={3} title="Project Price" />
+                {activeIndex === 3 && (<C4 elementIndex={3} />)}
             </div>
+
+            {/* C5 and C6 components to be added*/}
             <div key={4} className="border-2 mb-4 rounded-md">
-                {/* Accordion header */}
-                <AccordionHeader
-                    toggleAccordion={toggleAccordion}
-                    elementIndex={4}
-                    activeIndex={activeIndex}
-                    title="Additional Information"
-                />
-                {/* Accordion content */}
+                <AccordionHeader elementIndex={4} title="Additional Information" />
                 {activeIndex === 4 && (
                     <div className="p-4 bg-white">
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -94,15 +48,9 @@ export default function Accordion() {
                     </div>
                 )}
             </div>
+
             <div key={5} className="border-2 mb-4 rounded-md">
-                {/* Accordion header */}
-                <AccordionHeader
-                    toggleAccordion={toggleAccordion}
-                    elementIndex={5}
-                    activeIndex={activeIndex}
-                    title="Certificate Template"
-                />
-                {/* Accordion content */}
+                <AccordionHeader elementIndex={5} title="Certificate Template" />
                 {activeIndex === 5 && (
                     <div className="p-4 bg-white">
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -116,6 +64,7 @@ export default function Accordion() {
                     </div>
                 )}
             </div>
+
         </div>
     )
 }

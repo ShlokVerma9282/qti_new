@@ -16,6 +16,11 @@ export default function C_COMPONENT() {
     const [project, setProject] = useState({ ...defaultProject });
     const [activeIndex, setActiveIndex] = useState(null);
 
+    // Function for toggling active index
+    const toggleAccordion = (index) => {
+        setActiveIndex(index === activeIndex ? null : index);
+    };
+
     // function to be called on clicking create-project button
     const handleSubmit = () => {
         axios.post("http://localhost:8000/project/create", {
@@ -43,7 +48,7 @@ export default function C_COMPONENT() {
 
     return (
         <div className="p-8">
-            <ProjectContext.Provider value={{project, setProject, activeIndex, setActiveIndex}}>
+            <ProjectContext.Provider value={{project, setProject, activeIndex, setActiveIndex, toggleAccordion}}>
                 <Accordion />
                 <Footer handleSubmit={handleSubmit} />
             </ProjectContext.Provider>

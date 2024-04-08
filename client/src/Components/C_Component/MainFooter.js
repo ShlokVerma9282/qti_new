@@ -10,7 +10,7 @@ export default function Footer() {
                 <button className="col-span-2 p-4  
                 bg-gradient-to-tr from-blue-500 to bg-purple-500 
                 text-white rounded-md font-sans font-medium text-lg">
-                    Create Course 
+                    Create Project 
                     <i className="fa-solid fa-arrow-right pl-2" style={{color: "#fcfcfc"}}></i>
                 </button>
             </div>

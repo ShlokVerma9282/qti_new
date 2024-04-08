@@ -4,8 +4,8 @@ import { ProjectContext } from "./ProjectContext";
 export default function Footer(props) {
 
     // Destructuring from props and context
-    const { project, setProject } = useContext(ProjectContext);
-    const { toggleAccordion, elementIndex, formChanges } = props.metadata;
+    const { project, setProject, toggleAccordion } = useContext(ProjectContext);
+    const { elementIndex, formChanges } = props.metadata;
 
 
     const handleComponentSubmit = () => {

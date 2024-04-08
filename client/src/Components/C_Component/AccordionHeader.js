@@ -1,5 +1,14 @@
+import { useContext } from "react";
+import { ProjectContext } from "../ProjectContext";
+
 export default function AccordionHeader(props) {
-    const { toggleAccordion, elementIndex, activeIndex, title } = props;
+
+    // Get title and elementIndex from props
+    const { elementIndex, title } = props;
+
+    // Get activeIndex and toggle function from context
+    const { toggleAccordion, activeIndex } = useContext(ProjectContext);
+
     return (
         <button onClick={() => toggleAccordion(elementIndex)} className={`w-full p-4 py-3  
                 ${activeIndex !== elementIndex ? "text-gray-800 font-medium text-lg" : "text-blue-700 font-bold text-xl"} 
