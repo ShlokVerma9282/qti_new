@@ -5,12 +5,12 @@ const projectSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    slug: {
-        type: String
-    },
-    about: {
-        type: String
-    }
+    slug: String,
+    about: String,
+    setting: {},
+    video: {},
+    topics: [{}]
+
 }, { timestamps: true });
 
 module.exports = mongoose.model('Project', projectSchema)

@@ -16,8 +16,16 @@ export default function C1(props) {
     const [title, setTitle] = useState(project.title);
     const [slug, setSlug] = useState(project.slug);
     const [about, setAbout] = useState(project.about);
-    const [difficulty, setDifficulty] = useState();
-    const [student, setStudent] = useState();
+    const [general, setGeneral] = useState(project.setting.general);
+    const [contentDrip, setContentDrip] = useState(project.setting.contentDrip);
+
+    // contentDrip types array
+    const contentDripTypes = [
+        "Schedule Project Contents By Date",
+        "Content Available After X Days From Enrollment",
+        "Project Content Available Sequentially",
+        "Project Content Unlocked After Finishing Prerequisites"
+    ]
 
     const handleFileInputChange = (e) => {
         const file = e.target.files[0];
@@ -131,8 +139,8 @@ export default function C1(props) {
                                         type="number"
                                         className="w-full h-10 border-2 border-gray-300 p-2 rounded-lg leading-tight"
                                         id="max-students"
-                                        placeholder="100"
-                                        onChange={(e) => setStudent(e.target.value)}
+                                        value={general.maxNumber}
+                                        onChange={(e) => setGeneral({ ...general, maxNumber: e.target.value })}
                                     />
                                     <p>Number of students that can enroll in this Project. Set 0 for no limits</p>
                                 </div>
@@ -141,7 +149,8 @@ export default function C1(props) {
                                     <select
                                         className="w-full border-2 border-gray-300 p-2 rounded-lg leading-tight"
                                         id="difficulty-level"
-                                        onChange={(e) => setDifficulty(e.target.value)}
+                                        value={general.difficulty}
+                                        onChange={(e) => setGeneral({ ...general, difficulty: e.target.value })}
                                     >
                                         <option value="all-levels">All Levels</option>
                                         <option value="beginner">Beginner</option>
@@ -161,7 +170,10 @@ export default function C1(props) {
                                                         type="checkbox"
                                                         name="toggle"
                                                         id="public-Project-toggle"
-                                                        className="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer"
+                                                        className="toggle-checkbox absolute block w-6 h-6 
+                                                        rounded-full bg-white border-4 appearance-none cursor-pointer"
+                                                        value={general.public}
+                                                        onChange={(e) => setGeneral({ ...general, public: !general.public })}
                                                     />
                                                     <label
                                                         htmlFor="public-Project-toggle"
@@ -185,7 +197,10 @@ export default function C1(props) {
                                                         type="checkbox"
                                                         name="toggle"
                                                         id="enable-q-a-toggle"
-                                                        className="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer"
+                                                        className="toggle-checkbox absolute block w-6 h-6 rounded-full 
+                                                        bg-white border-4 appearance-none cursor-pointer"
+                                                        value={general.qa}
+                                                        onChange={(e) => setGeneral({ ...general, qa: !general.qa })}
                                                     />
                                                     <label
                                                         htmlFor="enable-q-a-toggle"
@@ -211,34 +226,29 @@ export default function C1(props) {
                                     type="checkbox"
                                     className="form-checkbox h-5 w-5 text-gray-500 mr-2"
                                     id="public-course"
+                                    value={contentDrip.enabled}
+                                    onChange={(e) => setContentDrip({ enabled: !contentDrip.enabled })}
                                 />
                                 Enable
                             </label>
                             <p>Enable / Disable content drip</p>
-                            <div className="mt-6">
-                                <h1 className="text-lg">Content Drip Type</h1>
-                                <h3 className="text-gray-600 mt-3 text-lg">
-                                    You can schedule your course content using the above content drip options.
-                                </h3>
-                                <div>
+                            {contentDrip.enabled &&
+                                <div className="mt-6">
+                                    <h1 className="text-lg">Content Drip Type</h1>
+                                    <h3 className="text-gray-600 mt-3 text-lg">
+                                        You can schedule your project content using the above content drip options.
+                                    </h3>
                                     <div>
-                                        <input type="radio" id="option1" name="option" value="option1" />
-                                        <label htmlFor="option1">Schedule Project Contents By Date</label>
-                                    </div>
-                                    <div>
-                                        <input type="radio" id="option2" name="option" value="option2" />
-                                        <label htmlFor="option2">Content Available After X Days From Enrollment</label>
-                                    </div>
-                                    <div>
-                                        <input type="radio" id="option3" name="option" value="option3" />
-                                        <label htmlFor="option3">Project Content Available Sequentially</label>
-                                    </div>
-                                    <div>
-                                        <input type="radio" id="option4" name="option" value="option4" />
-                                        <label htmlFor="option4">Project Content Unlocked After Finishing Prerequisites</label>
+                                        {contentDripTypes.map((type, index) =>
+                                            <div key={`type${index}`}>
+                                                <input type="radio" name="dripType" value={type}
+                                                    onClick={(e) => setContentDrip({ ...contentDrip, dripType: e.target.value })} />
+                                                <label htmlFor={`type${index}`}> {type}</label>
+                                            </div>
+                                        )}
                                     </div>
                                 </div>
-                            </div>
+                            }
                         </div>
                     )}
                 </div>
@@ -288,7 +298,7 @@ export default function C1(props) {
                     <h1 style={{ color: "grey" }}>© Size: 700×430 pixels, File Support: JPG, JPEG, PNG, GIF</h1>
                 </div>
 
-                <Footer metadata={{ ...props, formChanges: { title, slug, about } }} />
+                <Footer metadata={{ ...props, formChanges: { title, slug, about, setting: { general, contentDrip } } }} />
 
             </div>
         </div>

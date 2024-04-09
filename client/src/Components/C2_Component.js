@@ -1,15 +1,18 @@
 import { useState } from "react"
+import Footer from "./C_All_Footer";
+import { useContext } from "react";
+import { ProjectContext } from "./ProjectContext";
 
-export default function C2() {
+export default function C2(props) {
 
-    const [selectedWebsite, setSelectedWebsite] = useState('YouTube');
-    const websites = ['YouTube', 'Twitch', 'Vimeo']; // Add more websites as needed
-    const [drop, setDrop] = useState();
-    const [link, setLink] = useState();
+    // Destructuring context
+    const { project } = useContext(ProjectContext);
 
-    const handleWebsiteChange = (e) => {
-        setSelectedWebsite(e.target.value);
-    };
+    // Add more websites as needed
+    const websitesList = ['YouTube', 'Twitch', 'Vimeo'];
+
+    const [website, setWebsite] = useState(project.video.website);
+    const [link, setLink] = useState(project.video.link);
 
     return (
         <div className="bg-gray-100 ">
@@ -19,22 +22,25 @@ export default function C2() {
                     <select
                         id="website"
                         className="w-full border-2 p-2 border-gray-300 rounded-lg"
-                        value={selectedWebsite}
+                        value={website}
                         onChange={(e) => {
-                            handleWebsiteChange(e);
-                            setDrop(e.target.value);
+                            setWebsite(e.target.value);
                         }}
                     >
-                        {websites.map((website) => (
-                            <option key={website} value={website}>{website}</option>
+                        {websitesList.map((siteType) => (
+                            <option key={siteType} value={siteType}>{siteType}</option>
                         ))}
                     </select>
                 </div>
                 <div className="mb-2">
                     <label htmlFor="URL" className="block mb-2 font-bold">Add Video URL</label>
-                    <input type="text" id="URL" onChange={(e) => setLink(e.target.value)} className="w-full border-2 border-gray-300 p-2 rounded-lg mb-2" placeholder='Add URL Here' />
-                    <p style={{ color: "gray" }}>Example: https://www.{selectedWebsite.toLowerCase()}.com/</p>
+                    <input type="text" id="URL" onChange={(e) => setLink(e.target.value)} className="w-full border-2 
+                    border-gray-300 p-2 rounded-lg mb-2" value={link} />
+                    <p style={{ color: "gray" }}>Example: https://www.{website.toLowerCase()}.com/</p>
                 </div>
+
+                <Footer metadata={{ ...props, formChanges: { video: { link, website } } }} />
+
             </div>
         </div>
     )

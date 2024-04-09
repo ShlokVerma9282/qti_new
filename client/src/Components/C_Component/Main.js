@@ -9,7 +9,23 @@ export default function C_COMPONENT() {
     const defaultProject = {
         title: "",
         slug: "",
-        about: ""
+        about: "",
+        setting: {
+            general: {
+                public: false,
+                qa: false,
+                maxNumber: 100,
+                difficulty: "all-levels"
+            },
+            contentDrip: {
+                enabled: false
+            }
+        },
+        video: {
+            website: "YouTube",
+            link: ""
+        },
+        topics: []
     }
 
     // Setting project and active accordion item
@@ -27,8 +43,7 @@ export default function C_COMPONENT() {
             ...project
         })
             .then((response) => {
-                console.log(response);
-                setProject({});
+                setProject({ ...defaultProject });
                 setActiveIndex(null);
             })
             .catch(error => {
@@ -48,7 +63,7 @@ export default function C_COMPONENT() {
 
     return (
         <div className="p-8">
-            <ProjectContext.Provider value={{project, setProject, activeIndex, setActiveIndex, toggleAccordion}}>
+            <ProjectContext.Provider value={{ project, setProject, activeIndex, setActiveIndex, toggleAccordion }}>
                 <Accordion />
                 <Footer handleSubmit={handleSubmit} />
             </ProjectContext.Provider>

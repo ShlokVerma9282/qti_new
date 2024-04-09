@@ -1,11 +1,18 @@
 import { useState } from "react";
+import Footer from "./C_All_Footer";
+import { useContext } from "react";
+import { ProjectContext } from "./ProjectContext";
 
-export default function C3() {
+export default function C3(props) {
+
+    // Destructuring context
+    const { project } = useContext(ProjectContext);
+
     const [showAdd, setShowAdd] = useState(false); // State to manage visibility of Add component
     const [editIndex, setEditIndex] = useState(null); // State to track the index of the topic being edited
     const [topicName, setTopicName] = useState('');
     const [topicSummary, setTopicSummary] = useState('');
-    const [topics, setTopics] = useState([]); // State to store submitted topics
+    const [topics, setTopics] = useState(project.topics); // State to store submitted topics
 
     const handleTopicNameChange = (e) => {
         setTopicName(e.target.value);
@@ -58,6 +65,19 @@ export default function C3() {
     return (
         <div className="bg-gray-100">
             <div className="container mx-auto p-4">
+                {/* Display submitted topics */}
+                {topics.length > 0 && (
+                    <div className="container mx-auto p-4">
+                        <ol>
+                            {topics.map((topic, index) => (
+                                <li key={index} className="mb-2">
+                                    <strong>{index + 1}. {topic.name}</strong>: {topic.summary}
+                                    <button className="ml-2 bg-blue-500 text-white px-3 py-1 rounded" onClick={() => handleEditTopic(index)}>Edit</button>
+                                </li>
+                            ))}
+                        </ol>
+                    </div>
+                )}
                 <div className="mb-3">
                     {/* Button to toggle visibility of Add component */}
                     <button onClick={() => setShowAdd(!showAdd)} className="bg-gradient-to-tr from-blue-500 to bg-purple-500 text-white px-5 py-2 rounded-lg">
@@ -102,22 +122,10 @@ export default function C3() {
                         </div>
                     </div>
                 )}
-            </div>
 
-            {/* Display submitted topics */}
-            {topics.length > 0 && (
-                <div className="container mx-auto p-4">
-                    <h2 className="text-xl font-bold mb-2">Submitted Topics</h2>
-                    <ol>
-                        {topics.map((topic, index) => (
-                            <li key={index} className="mb-2">
-                                <strong>{index + 1}. {topic.name}</strong>: {topic.summary}
-                                <button className="ml-2 bg-blue-500 text-white px-3 py-1 rounded" onClick={() => handleEditTopic(index)}>Edit</button>
-                            </li>
-                        ))}
-                    </ol>
-                </div>
-            )}
+                <Footer metadata={{ ...props, formChanges: { topics } }} />
+
+            </div>
         </div>
     );
 }

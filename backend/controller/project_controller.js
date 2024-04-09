@@ -3,11 +3,7 @@ const Project = require('../model/project');
 module.exports.create = async function (req, res) {
     try {
         if(req.body.title) {
-            let project = await Project.create({
-                title: req.body.title,
-                slug: req.body.slug,
-                about: req.body.about
-            })
+            let project = await Project.create({...req.body})
             return res.status(200).json({
                 message: "Project created successfully!",
                 _id: project.id
