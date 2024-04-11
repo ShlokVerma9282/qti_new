@@ -8,7 +8,6 @@ export default function C_COMPONENT() {
 
     const defaultProject = {
         title: "",
-        slug: "",
         about: "",
         setting: {
             general: {

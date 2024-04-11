@@ -14,7 +14,6 @@ export default function C1(props) {
     const [activeButton, setActiveButton] = useState("button1");
     const [selectedFile, setSelectedFile] = useState(null);
     const [title, setTitle] = useState(project.title);
-    const [slug, setSlug] = useState(project.slug);
     const [about, setAbout] = useState(project.about);
     const [general, setGeneral] = useState(project.setting.general);
     const [contentDrip, setContentDrip] = useState(project.setting.contentDrip);
@@ -86,22 +85,14 @@ export default function C1(props) {
                     <p style={{ color: "grey" }}>© Title should be 30 character</p>
                 </div>
 
-                {/* Slug Input */}
-                <div className="mb-4">
-                    <label htmlFor="course-slug" className="block mb-2 font-bold">Project Slug</label>
-                    <input type="text" id="course-slug" value={slug}
-                        className="w-full border-2 border-gray-300 p-2 rounded-lg"
-                        placeholder="Enter course slug"
-                        onChange={(event) => setSlug(event.target.value)} />
-                    <p style={{ color: "grey" }}>© Permalink:https://yourdomain.com/new-course
-                    </p>
-                </div>
-
                 {/* About Input */}
                 <div className="mb-4">
-                    <label htmlFor="course-permalink" className="block mb-2 font-bold">About Project</label>
-                    <input type="text" id="course-permalink" value={about}
-                        className="w-full h-32  border-2 border-gray-300 p-2 rounded-lg"
+                    <label htmlFor="project-summary" className="block mb-2 font-bold">About Project</label>
+                    <textarea rows="3" id="project-summary" className="block p-2.5 w-full text-sm text-gray-900 
+                    rounded-lg border-2 border-gray-300 focus:ring-blue-500 
+                    focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 
+                    dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 
+                    dark:focus:border-blue-500" value={about}
                         onChange={(event) => setAbout(event.target.value)} />
                     <p style={{ color: "grey" }}>© HTML or plain text allowed, no emoji This field is used for search, so please be descriptive!</p>
                 </div>
@@ -256,10 +247,10 @@ export default function C1(props) {
                 <div className="mt-6">
                     <h1 className="block mb-2 font-bold text-lg">Project Thumbnail</h1>
                     <label htmlFor="fileInput" onDragOver={handleDragOver} onDragEnter={handleDragEnter}
-                        onDragLeave={handleDragLeave} onDrop={handleDrop} className="w-900 h-600 
+                        onDragLeave={handleDragLeave} onDrop={handleDrop} className="w-900  
                     border-4 border-dashed border-blue-500 hover:bg-gray-100 
                     flex flex-col justify-center items-center cursor-pointer 
-                    drop-area" style={{ height: "450px" }}>
+                    drop-area" style={{ height: "20rem" }}>
                         <input
                             type="file"
                             id="fileInput"
@@ -295,10 +286,10 @@ export default function C1(props) {
                             )}
                         </div>
                     </label>
-                    <h1 style={{ color: "grey" }}>© Size: 700×430 pixels, File Support: JPG, JPEG, PNG, GIF</h1>
+                    <h1 style={{ color: "grey" }} className="p-2">© Size: 700×430 pixels, File Support: JPG, JPEG, PNG, GIF</h1>
                 </div>
 
-                <Footer metadata={{ ...props, formChanges: { title, slug, about, setting: { general, contentDrip } } }} />
+                <Footer metadata={{ ...props, formChanges: { title, about, setting: { general, contentDrip } } }} />
 
             </div>
         </div>

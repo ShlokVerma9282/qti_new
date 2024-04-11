@@ -5,7 +5,6 @@ const projectSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    slug: String,
     about: String,
     setting: {},
     video: {},
