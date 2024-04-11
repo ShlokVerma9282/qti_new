@@ -77,7 +77,7 @@ export default function C3(props) {
                     {/* Button to toggle visibility of Add component */}
                     <button onClick={() => setShowAdd(!showAdd)} className="bg-gradient-to-tr 
                     from-blue-500 to bg-purple-500 text-white px-3 py-1 rounded-lg">
-                        {showAdd ? 'Hide Topic Editor' : 'Add New Topic +'}
+                        {showAdd ? 'Hide Topic Editor' : 'Add New Topic'}
                     </button>
                 </div>
                 {/* Render Add component based on state */}
@@ -121,27 +121,27 @@ export default function C3(props) {
 
                 {/* Display submitted topics */}
                 {topics.length > 0 && (
-                    <div className="grid grid-cols-5 mb-3">
-                        <div className="text-center border-y-2 p-2 border-gray-200 font-medium bg-indigo-100">Topic</div>
-                        <div className="col-span-3 text-center p-2 border-y-2 border-gray-200 font-medium bg-indigo-100">Summary</div>
-                        <div className="border-y-2 border-gray-200 p-2 bg-indigo-100"></div>
-                        {
-                            topics.map((topic) =>
-                                <>
-                                    <div className="text-center border-y-2 p-2 border-gray-200">{topic.name}</div>
-                                    <div className="col-span-3 text-center p-2 border-y-2 border-gray-200">{topic.summary}</div>
-                                    <div className="border-y-2 border-gray-200 p-3 flex flex-row-reverse ">
-                                        <button className="ml-2 bg-red-500 text-white px-3 py-1 rounded" onClick={() => handleDeleteTopic(topic.id)}>Delete</button>
-                                        <button className="ml-2 bg-indigo-500 text-white px-3 py-1 rounded" onClick={() => handleEditTopic(topic)}>Edit</button>
-                                    </div>
-                                </>
-                            )
-                        }
-                    </div>
-
+                    <>
+                        <div className="grid grid-cols-5 mt-4 mb-2">
+                            <div className="text-center border-y-2 p-2 border-gray-200 font-medium bg-indigo-100">Topic</div>
+                            <div className="col-span-3 text-center p-2 border-y-2 border-gray-200 font-medium bg-indigo-100">Summary</div>
+                            <div className="border-y-2 border-gray-200 p-2 bg-indigo-100"></div>
+                            {
+                                topics.map((topic) =>
+                                    <>
+                                        <div className="text-center border-y-2 p-2 border-gray-200">{topic.name}</div>
+                                        <div className="col-span-3 text-center p-2 border-y-2 border-gray-200">{topic.summary}</div>
+                                        <div className="border-y-2 border-gray-200 p-3 flex flex-row-reverse ">
+                                            <button className="ml-2 bg-red-500 text-white px-3 py-1 rounded" onClick={() => handleDeleteTopic(topic.id)}>Delete</button>
+                                            <button className="ml-2 bg-indigo-500 text-white px-3 py-1 rounded" onClick={() => handleEditTopic(topic)}>Edit</button>
+                                        </div>
+                                    </>
+                                )
+                            }
+                        </div>
+                        <Footer metadata={{ ...props, formChanges: { topics } }} />
+                    </>
                 )}
-
-                <Footer metadata={{ ...props, formChanges: { topics } }} />
 
             </div>
         </div>
