@@ -70,20 +70,6 @@ export default function C4(props) {
                                 />
                                 <p className="text-gray-600">© The Project Price Includes Your Author Fee.</p>
                             </div>
-                            {/* <div className="w-full px-4">
-                                <label htmlFor="difficulty-level" className="block mb-2 font-bold">
-                                    Difficulty Level
-                                </label>
-                                <select
-                                    className="w-1000 h-10 border-2 border-gray-600 p-2 rounded-lg leading-tight"
-                                    id="difficulty-level"
-                                >
-                                    <option value="all-levels">Web developer</option>
-                                    <option value="beginner">data science</option>
-                                    <option value="intermediate">Machine learning</option>
-                                    <option value="advanced">Devops</option>
-                                </select>
-                            </div> */}
                         </div>
                     )}
                     {/* {activeTab === "button2" && <p></p>} */}

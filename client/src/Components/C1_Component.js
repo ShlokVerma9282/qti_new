@@ -8,6 +8,7 @@ export default function C1(props) {
     const { project } = useContext(ProjectContext);
 
     // States in this component
+    const [disabled, setDisabled] = useState(project.title.trim() !== '');
     const [activeButton, setActiveButton] = useState("button1");
     const [selectedFile, setSelectedFile] = useState(null);
     const [title, setTitle] = useState(project.title);
@@ -71,13 +72,16 @@ export default function C1(props) {
     return (
         <div className="bg-gray-100 ">
             <div className="container mx-auto p-4">
-
+                
                 {/* Title Input */}
                 <div className="mb-4">
-                    <label htmlFor="course-title" className="block mb-2 font-bold ">Project Title</label>
+                    <label htmlFor="course-title" className="block mb-2 font-bold ">
+                        Project Title{!disabled && <sup className="text-red-500">*</sup>}
+                    </label>
                     <input type="text" id="course-title" value={title}
                         className="w-full border-2 border-gray-300 p-2 rounded-lg"
-                        onChange={(event) => setTitle(event.target.value)} />
+                        onChange={(event) => setTitle(event.target.value)}
+                        disabled={disabled} />
                     <p style={{ color: "grey" }}>© Title should be 30 character</p>
                 </div>
 
@@ -89,7 +93,7 @@ export default function C1(props) {
                     focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 
                     dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 
                     dark:focus:border-blue-500" value={about}
-                        onChange={(event) => setAbout(event.target.value)} />
+                        onChange={(event) => setAbout(event.target.value)} disabled={disabled} />
                     <p style={{ color: "grey" }}>© HTML or plain text allowed, no emoji This field is used for search, so please be descriptive!</p>
                 </div>
 
@@ -128,6 +132,7 @@ export default function C1(props) {
                                         id="max-students"
                                         value={general.maxNumber}
                                         onChange={(e) => setGeneral({ ...general, maxNumber: e.target.value })}
+                                        disabled={disabled}
                                     />
                                     <p>Number of students that can enroll in this Project. Set 0 for no limits</p>
                                 </div>
@@ -138,6 +143,7 @@ export default function C1(props) {
                                         id="difficulty-level"
                                         value={general.difficulty}
                                         onChange={(e) => setGeneral({ ...general, difficulty: e.target.value })}
+                                        disabled={disabled}
                                     >
                                         <option value="all-levels">All Levels</option>
                                         <option value="beginner">Beginner</option>
@@ -161,6 +167,7 @@ export default function C1(props) {
                                                         rounded-full bg-white border-4 appearance-none cursor-pointer"
                                                         value={general.public}
                                                         onChange={(e) => setGeneral({ ...general, public: !general.public })}
+                                                        disabled={disabled}
                                                     />
                                                     <label
                                                         htmlFor="public-Project-toggle"
@@ -188,6 +195,7 @@ export default function C1(props) {
                                                         bg-white border-4 appearance-none cursor-pointer"
                                                         value={general.qa}
                                                         onChange={(e) => setGeneral({ ...general, qa: !general.qa })}
+                                                        disabled={disabled}
                                                     />
                                                     <label
                                                         htmlFor="enable-q-a-toggle"
@@ -215,6 +223,7 @@ export default function C1(props) {
                                     id="public-course"
                                     value={contentDrip.enabled}
                                     onChange={(e) => setContentDrip({ enabled: !contentDrip.enabled })}
+                                    disabled={disabled}
                                 />
                                 Enable
                             </label>
@@ -229,7 +238,8 @@ export default function C1(props) {
                                         {contentDripTypes.map((type, index) =>
                                             <div key={`type${index}`}>
                                                 <input type="radio" name="dripType" value={type}
-                                                    onClick={(e) => setContentDrip({ ...contentDrip, dripType: e.target.value })} />
+                                                    onClick={(e) => setContentDrip({ ...contentDrip, dripType: e.target.value })}
+                                                    disabled={disabled} />
                                                 <label htmlFor={`type${index}`}> {type}</label>
                                             </div>
                                         )}
@@ -253,6 +263,7 @@ export default function C1(props) {
                             accept="image/jpeg,image/png,image/gif,image/webp"
                             className="hidden"
                             onChange={handleFileInputChange}
+                            disabled={disabled}
                         />
                         <div className="flex flex-col justify-center items-center">
                             {selectedFile ? (
@@ -285,7 +296,19 @@ export default function C1(props) {
                     <h1 style={{ color: "grey" }} className="p-2">© Size: 700×430 pixels, File Support: JPG, JPEG, PNG, GIF</h1>
                 </div>
 
-                <Footer metadata={{ ...props, formChanges: { title, about, setting: { general, contentDrip } } }} />
+                {
+                    disabled ? (
+                        <button className="mt-2 bg-blue-500 text-white px-5 
+                            py-2 rounded-lg hover:bg-blue-600"
+                            onClick={() => setDisabled(!disabled)}>
+                            Edit
+                        </button>
+                    ) :
+                        (<Footer metadata={{
+                            ...props,
+                            formChanges: { title, about, setting: { general, contentDrip } }
+                        }} />)
+                }
 
             </div>
         </div>

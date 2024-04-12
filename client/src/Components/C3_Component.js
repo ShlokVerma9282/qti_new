@@ -8,16 +8,18 @@ export default function C3(props) {
     // Destructuring context
     const { project } = useContext(ProjectContext);
 
+    const [disabled, setDisabled] = useState(project.topics !== null);
     const [showAdd, setShowAdd] = useState(false); // State to manage visibility of Add component
     const [editIndex, setEditIndex] = useState(null); // State to track the index of the topic being edited
     const [topicName, setTopicName] = useState('');
     const [topicSummary, setTopicSummary] = useState('');
-    const [topics, setTopics] = useState([...project.topics]); // State to store submitted topics
+    const [topics, setTopics] = useState(project.topics !== null ? [...project.topics] : []); // State to store submitted topics
 
     const handleCancelChanges = () => {
         setTopicName('');
         setTopicSummary('');
         setShowAdd(false);
+        setEditIndex(null);
     }
 
     const handleSubmission = () => {
@@ -73,23 +75,25 @@ export default function C3(props) {
     return (
         <div className="bg-gray-100">
             <div className="container mx-auto p-4">
-                <div className="mb-3">
-                    {/* Button to toggle visibility of Add component */}
-                    <button onClick={() => setShowAdd(!showAdd)} className="bg-gradient-to-tr 
+                {!disabled && (
+                    <div className="mb-3">
+                        {/* Button to toggle visibility of Add component */}
+                        <button onClick={() => setShowAdd(!showAdd)} className="bg-gradient-to-tr 
                     from-blue-500 to bg-purple-500 text-white px-3 py-1 rounded-lg">
-                        {showAdd ? 'Hide Topic Editor' : 'Add New Topic'}
-                    </button>
-                </div>
+                            {showAdd ? 'Hide Topic Editor' : 'Add New Topic'}
+                        </button>
+                    </div>
+                )}
                 {/* Render Add component based on state */}
                 {showAdd && (
                     <div>
                         <div className="container mx-auto py-4">
                             <div className="bg-white rounded-xl shadow-md p-6">
                                 <div className="flex justify-between items-center mb-4">
-                                    <h1 className="text-xl font-bold text-black">{editIndex ? "Edit" : "Add"} Topic</h1>
+                                    <h1 className="text-xl font-bold text-black">{editIndex !== null ? "Edit" : "Add"} Topic</h1>
                                 </div>
                                 <div className="mb-4">
-                                    <label htmlFor="topic-title" className="block mb-2 font-medium ">Topic Name</label>
+                                    <label htmlFor="topic-title" className="block mb-2 font-medium ">Topic Name<sup className="text-red-500">*</sup></label>
                                     <input
                                         type="text"
                                         id="topic-title"
@@ -101,7 +105,7 @@ export default function C3(props) {
                                 </div>
 
                                 <div className="mb-4">
-                                    <label htmlFor="topic-summary" className="block mb-2 font-medium">Topic Summary</label>
+                                    <label htmlFor="topic-summary" className="block mb-2 font-medium">Topic Summary<sup className="text-red-500">*</sup></label>
                                     <textarea rows="3" id="topic-summary" className="block p-2.5 w-full text-sm 
                                     text-gray-900 rounded-lg border-2 border-gray-300 focus:ring-blue-500 
                                     focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 
@@ -112,7 +116,7 @@ export default function C3(props) {
                                 </div>
                                 <div className="flex justify-end"> {/* Added flex container for alignment */}
                                     <button className="bg-gray-100 text-gray border-2 border-gray-300 px-5 py-2 rounded-lg mr-2" onClick={handleCancelChanges}>Cancel</button>
-                                    <button className="bg-indigo-500 text-white px-5 py-2 rounded-lg" onClick={handleSubmission}>{editIndex ? "Save" : "Create"} Topic</button>
+                                    <button className="bg-indigo-500 text-white px-5 py-2 rounded-lg" onClick={handleSubmission}>Save Topic</button>
                                 </div>
                             </div>
                         </div>
@@ -123,23 +127,43 @@ export default function C3(props) {
                 {topics.length > 0 && (
                     <>
                         <div className="grid grid-cols-5 mt-4 mb-2">
-                            <div className="text-center border-y-2 p-2 border-gray-200 font-medium bg-indigo-100">Topic</div>
-                            <div className="col-span-3 text-center p-2 border-y-2 border-gray-200 font-medium bg-indigo-100">Summary</div>
+                            <div className="border-y-2 p-2 border-gray-200 font-medium bg-indigo-100">Topic</div>
+                            <div className="col-span-3 p-2 border-y-2 border-gray-200 font-medium bg-indigo-100">Summary</div>
                             <div className="border-y-2 border-gray-200 p-2 bg-indigo-100"></div>
                             {
                                 topics.map((topic) =>
                                     <>
-                                        <div className="text-center border-y-2 p-2 border-gray-200">{topic.name}</div>
-                                        <div className="col-span-3 text-center p-2 border-y-2 border-gray-200">{topic.summary}</div>
+                                        <div className="border-y-2 p-2 border-gray-200">{topic.name}</div>
+                                        <div className="col-span-3 p-2 border-y-2 border-gray-200">{topic.summary}</div>
                                         <div className="border-y-2 border-gray-200 p-3 flex flex-row-reverse ">
-                                            <button className="ml-2 bg-red-500 text-white px-3 py-1 rounded" onClick={() => handleDeleteTopic(topic.id)}>Delete</button>
-                                            <button className="ml-2 bg-indigo-500 text-white px-3 py-1 rounded" onClick={() => handleEditTopic(topic)}>Edit</button>
+                                            {!disabled && <>
+                                                <button className="ml-2 bg-red-500 text-white px-3 py-1 rounded"
+                                                    onClick={() => handleDeleteTopic(topic.id)}>
+                                                    Delete
+                                                </button>
+                                                <button className="ml-2 bg-indigo-500 text-white px-3 py-1 rounded"
+                                                    onClick={() => handleEditTopic(topic)}>
+                                                    Edit
+                                                </button>
+                                            </>}
                                         </div>
                                     </>
                                 )
                             }
                         </div>
-                        <Footer metadata={{ ...props, formChanges: { topics } }} />
+                        {
+                            disabled ? (
+                                <button className="mt-2 bg-blue-500 text-white px-5 
+                            py-2 rounded-lg hover:bg-blue-600"
+                                    onClick={() => setDisabled(!disabled)}>
+                                    Edit
+                                </button>
+                            ) :
+                                (<Footer metadata={{
+                                    ...props,
+                                    formChanges: { topics }
+                                }} />)
+                        }
                     </>
                 )}
 

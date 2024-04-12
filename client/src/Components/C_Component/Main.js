@@ -20,11 +20,8 @@ export default function C_COMPONENT() {
                 enabled: false
             }
         },
-        video: {
-            website: "YouTube",
-            link: ""
-        },
-        topics: [],
+        video: null,
+        topics: null,
         price: 0,
         discountedPrice: 0
     }

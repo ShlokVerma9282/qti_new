@@ -9,9 +9,23 @@ export default function Footer(props) {
 
 
     const handleComponentSubmit = () => {
-        setProject({ ...project, ...formChanges });
-        toggleAccordion(elementIndex);
-        toggleAccordion(elementIndex + 1);
+        let isValid = true;
+        if (elementIndex === 0) {
+            if (formChanges.title.trim() === "") {
+                window.alert("Project title cannot be empty!");
+                isValid = false;
+            }
+        } else if(elementIndex === 1) {
+            if(formChanges.video.website !== "None" && formChanges.video.link.trim() === "") {
+                window.alert("Project video url cannot be empty!");
+                isValid = false;
+            }
+        }
+        if (isValid) {
+            setProject({ ...project, ...formChanges });
+            toggleAccordion(elementIndex);
+            toggleAccordion(elementIndex + 1);
+        }
     }
 
     const discardChanges = () => {
