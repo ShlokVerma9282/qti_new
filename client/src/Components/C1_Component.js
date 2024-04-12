@@ -4,9 +4,6 @@ import { ProjectContext } from "./ProjectContext";
 import Footer from "./C_All_Footer";
 export default function C1(props) {
 
-    // Provide a valid URL for your default image
-    const defaultBackgroundImage = 'https://www.shutterstock.com/image-vector/default-ui-image-placeholder-wireframes-600nw-1037719192.jpg';
-
     // Destructuring context
     const { project } = useContext(ProjectContext);
 
@@ -80,7 +77,6 @@ export default function C1(props) {
                     <label htmlFor="course-title" className="block mb-2 font-bold ">Project Title</label>
                     <input type="text" id="course-title" value={title}
                         className="w-full border-2 border-gray-300 p-2 rounded-lg"
-                        placeholder="Enter course title"
                         onChange={(event) => setTitle(event.target.value)} />
                     <p style={{ color: "grey" }}>© Title should be 30 character</p>
                 </div>
@@ -103,8 +99,8 @@ export default function C1(props) {
                     <div className="flex flex-col px-5 py-4 rounded-lg">
                         <button
                             className={`btn ${activeButton === "button1"
-                                ? "bg-blue-500 text-white"
-                                : "bg-gray-300 text-black-500 hover:bg-blue-400 hover:text-white"
+                                ? "bg-indigo-500 text-white"
+                                : "bg-gray-300 text-black-500 hover:bg-indigo-400 hover:text-white"
                                 } w-60 h-10 py-2 px-4 rounded-full text-lg font-semibold mb-4`}
                             onClick={() => setActiveButton("button1")}
                         >
@@ -112,8 +108,8 @@ export default function C1(props) {
                         </button>
                         <button
                             className={`btn ${activeButton === "button2"
-                                ? "bg-blue-500 text-white"
-                                : "bg-gray-300 text-black-500 hover:bg-blue-400 hover:text-white"
+                                ? "bg-indigo-500 text-white"
+                                : "bg-gray-300 text-black-500 hover:bg-indigo-400 hover:text-white"
                                 } w-60 h-10 py-2 px-4 text-lg font-semibold rounded-full`}
                             onClick={() => setActiveButton("button2")}
                         >

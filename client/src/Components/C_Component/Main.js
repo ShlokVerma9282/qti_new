@@ -24,7 +24,9 @@ export default function C_COMPONENT() {
             website: "YouTube",
             link: ""
         },
-        topics: []
+        topics: [],
+        price: 0,
+        discountedPrice: 0
     }
 
     // Setting project and active accordion item

@@ -8,7 +8,9 @@ const projectSchema = new mongoose.Schema({
     about: String,
     setting: {},
     video: {},
-    topics: [{}]
+    topics: [{}],
+    price: Number,
+    discountedPrice: Number
 
 }, { timestamps: true });
 
