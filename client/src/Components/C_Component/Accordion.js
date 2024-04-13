@@ -1,6 +1,3 @@
-import { useContext } from "react";
-import { ProjectContext } from "../ProjectContext";
-import AccordionHeader from "./AccordionHeader";
 import C1 from "../C1_Component";
 import C2 from "../C2_Component";
 import C3 from "../C3_Component";
@@ -8,31 +5,25 @@ import C4 from "../C4_Component";
 
 export default function Accordion() {
 
-    const { activeIndex } = useContext(ProjectContext)
-
     return (
         <div className="p-3 m-2">
             <div key={0} className="border-2 mb-4 rounded-md">
-                <AccordionHeader elementIndex={0} title="Project Info" />
-                {activeIndex === 0 && (<C1 elementIndex={0} />)}
+                <C1 />
             </div>
 
             <div key={1} className="border-2 mb-4 rounded-md">
-                <AccordionHeader elementIndex={1} title="Project Intro Video" />
-                {activeIndex === 1 && (<C2 elementIndex={1} />)}
+                <C2 />
             </div>
 
             <div key={2} className="border-2 mb-4 rounded-md">
-                <AccordionHeader elementIndex={2} title="Project Builder" />
-                {activeIndex === 2 && (<C3 elementIndex={2} />)}
+                <C3 />
             </div>
 
             <div key={3} className="border-2 mb-4 rounded-md">
-                <AccordionHeader elementIndex={3} title="Project Price" />
-                {activeIndex === 3 && (<C4 elementIndex={3} />)}
+                <C4 />
             </div>
 
-            {/* C5 and C6 components to be added*/}
+            {/* 
             <div key={4} className="border-2 mb-4 rounded-md">
                 <AccordionHeader elementIndex={4} title="Additional Information" />
                 {activeIndex === 4 && (
@@ -63,7 +54,7 @@ export default function Accordion() {
                         vel lobortis eros ex nec est.
                     </div>
                 )}
-            </div>
+            </div> */}
 
         </div>
     )
