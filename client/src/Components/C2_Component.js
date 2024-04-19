@@ -15,7 +15,7 @@ export default function C2() {
     const websitesList = ['None', 'YouTube', 'Twitch', 'Vimeo'];
 
     const [disabled, setDisabled] = useState(false);
-    const [website, setWebsite] = useState(disabled ? project.video.website : "None");
+    const [website, setWebsite] = useState(project.video === null ? "None" : project.video.website);
     const [link, setLink] = useState(project.video === null ? "" : project.video.link);
 
     const onDiscard = () => {

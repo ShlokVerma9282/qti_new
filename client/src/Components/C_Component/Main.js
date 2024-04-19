@@ -26,6 +26,9 @@ export default function C_COMPONENT() {
         discountedPrice: 0
     }
 
+    //using key prop to forcefully update component tree
+    const [key, setKey] = useState(0);
+
     // Setting project and active accordion item
     const [project, setProject] = useState({ ...defaultProject });
     const [activeIndex, setActiveIndex] = useState(null);
@@ -43,6 +46,7 @@ export default function C_COMPONENT() {
             .then((response) => {
                 setProject({ ...defaultProject });
                 setActiveIndex(null);
+                setKey(key+1);
             })
             .catch(error => {
                 window.alert("Error occurred while creating project!");
@@ -62,7 +66,7 @@ export default function C_COMPONENT() {
     return (
         <div className="p-8">
             <ProjectContext.Provider value={{ project, setProject, activeIndex, setActiveIndex, toggleAccordion }}>
-                <Accordion />
+                <Accordion key={key}/>
                 <Footer handleSubmit={handleSubmit} />
             </ProjectContext.Provider>
         </div>

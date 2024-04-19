@@ -88,6 +88,8 @@ export default function C1() {
             <Header elementIndex={elementIndex} title="Project Info"
                 disabled={disabled} setDisabled={setDisabled} />
 
+                {console.log("C1 RENDER")}
+
             {activeIndex === elementIndex && (
                 <>
                     <div className="bg-gray-100 ">
@@ -188,6 +190,7 @@ export default function C1() {
                                                                     value={general.public}
                                                                     onChange={(e) => setGeneral({ ...general, public: !general.public })}
                                                                     disabled={disabled}
+                                                                    checked={general.public}
                                                                 />
                                                                 <label
                                                                     htmlFor="public-Project-toggle"
@@ -216,6 +219,7 @@ export default function C1() {
                                                                     value={general.qa}
                                                                     onChange={(e) => setGeneral({ ...general, qa: !general.qa })}
                                                                     disabled={disabled}
+                                                                    checked={general.qa}
                                                                 />
                                                                 <label
                                                                     htmlFor="enable-q-a-toggle"
@@ -244,6 +248,7 @@ export default function C1() {
                                                 value={contentDrip.enabled}
                                                 onChange={(e) => setContentDrip({ enabled: !contentDrip.enabled })}
                                                 disabled={disabled}
+                                                checked={contentDrip.enabled}
                                             />
                                             Enable
                                         </label>
