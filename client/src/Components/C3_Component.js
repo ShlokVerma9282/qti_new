@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useContext } from "react";
 import { ProjectContext } from "./ProjectContext";
-import Footer from "./C_All_Footer";
-import Header from "./C_All_Header";
+import Footer from "./Sub_Components/C_All_Footer";
+import Header from "./Sub_Components/C_All_Header";
 
 export default function C3() {
 

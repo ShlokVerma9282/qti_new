@@ -9,7 +9,7 @@ export default function Accordion() {
 
     return (
         <div className="p-3 m-2">
-            {console.log("Accordion render")}
+            
             <div key={0} className="border-2 mb-4 rounded-md">
                 <C1 />
             </div>

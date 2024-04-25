@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useContext } from "react";
 import { ProjectContext } from "./ProjectContext";
-import Footer from "./C_All_Footer";
-import Header from "./C_All_Header";
+import Footer from "./Sub_Components/C_All_Footer";
+import Header from "./Sub_Components/C_All_Header";
 export default function C1() {
 
     const elementIndex = 0;
@@ -38,57 +38,55 @@ export default function C1() {
         "Project Content Unlocked After Finishing Prerequisites"
     ]
 
-    const handleFileInputChange = (e) => {
-        const file = e.target.files[0];
-        if (file) {
-            checkImageDimensions(file);
-        }
-    };
+    // const handleFileInputChange = (e) => {
+    //     const file = e.target.files[0];
+    //     if (file) {
+    //         checkImageDimensions(file);
+    //     }
+    // };
 
-    const handleDragOver = (e) => {
-        e.preventDefault();
-    };
+    // const handleDragOver = (e) => {
+    //     e.preventDefault();
+    // };
 
-    const handleDragEnter = (e) => {
-        e.preventDefault();
-    };
+    // const handleDragEnter = (e) => {
+    //     e.preventDefault();
+    // };
 
-    const handleDragLeave = (e) => {
-        e.preventDefault();
-        // Get the element under the mouse pointer
-        const target = document.elementFromPoint(e.clientX, e.clientY);
-        // Check if the element is outside the drop area
-        if (!target.closest('.drop-area')) {
-            setSelectedFile(null); // Reset selected file
-        }
-    };
+    // const handleDragLeave = (e) => {
+    //     e.preventDefault();
+    //     // Get the element under the mouse pointer
+    //     const target = document.elementFromPoint(e.clientX, e.clientY);
+    //     // Check if the element is outside the drop area
+    //     if (!target.closest('.drop-area')) {
+    //         setSelectedFile(null); // Reset selected file
+    //     }
+    // };
 
-    const handleDrop = (e) => {
-        e.preventDefault();
-        const file = e.dataTransfer.files[0];
-        if (file) {
-            checkImageDimensions(file);
-        }
-    };
+    // const handleDrop = (e) => {
+    //     e.preventDefault();
+    //     const file = e.dataTransfer.files[0];
+    //     if (file) {
+    //         checkImageDimensions(file);
+    //     }
+    // };
 
-    const checkImageDimensions = (file) => {
-        const image = new Image();
-        image.src = URL.createObjectURL(file);
-        image.onload = () => {
-            if (image.width === 700 && image.height === 430) {
-                setSelectedFile(file);
-            } else {
-                alert('Image dimensions must be 700x430 pixels.');
-            }
-        };
-    };
+    // const checkImageDimensions = (file) => {
+    //     const image = new Image();
+    //     image.src = URL.createObjectURL(file);
+    //     image.onload = () => {
+    //         if (image.width === 700 && image.height === 430) {
+    //             setSelectedFile(file);
+    //         } else {
+    //             alert('Image dimensions must be 700x430 pixels.');
+    //         }
+    //     };
+    // };
 
     return (
         <>
             <Header elementIndex={elementIndex} title="Project Info"
                 disabled={disabled} setDisabled={setDisabled} />
-
-                {console.log("C1 RENDER")}
 
             {activeIndex === elementIndex && (
                 <>

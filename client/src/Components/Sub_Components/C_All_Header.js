@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { ProjectContext } from "./ProjectContext";
+import { ProjectContext } from "../ProjectContext";
 
 export default function Header(props) {
 
