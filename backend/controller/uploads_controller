@@ -1,0 +1,53 @@
+require('dotenv').config();
+const { getSignedUrl } = require("@aws-sdk/s3-request-presigner");
+const { S3Client, GetObjectCommand, PutObjectCommand } = require("@aws-sdk/client-s3");
+
+const client = new S3Client({
+    region: process.env.S3_REGION,
+    credentials: {
+        accessKeyId: process.env.ACCESS_KEY,
+        secretAccessKey: process.env.SECRET_KEY
+    }
+});
+
+async function getPreSignedForUpload(filename, contentType) {
+    const key = `projects/${filename}`;
+    const command = new PutObjectCommand({
+        Bucket: process.env.S3_BUCKET,
+        Key: key,
+        ContentType: contentType
+    })
+    const url = await getSignedUrl(client, command, { expiresIn: 360 });
+    return { key, url };
+}
+
+async function getPreSignedForGet(key) {
+    const command = new GetObjectCommand({
+        Bucket: process.env.S3_BUCKET,
+        Key: key
+    });
+    const url = await getSignedUrl(client, command, { expiresIn: 20 });
+    return url;
+}
+
+module.exports.createFilesMetadata = async function (req, res) {
+    try {
+        let filesMetadata = [];
+        for (let i = 0; i < req.body.files.length; i++) {
+            let file = req.body.files[i];
+            const { path, type, size } = file;
+            getPreSignedForUpload(`video-${Date.now()}`, type).then((data) => {
+                let { url, key } = data;
+                filesMetadata.push({ path, type, size, key, url });
+                if (i === req.body.files.length - 1) {
+                    return res.status(200).json({ files: filesMetadata });
+                }
+            });
+        }
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({
+            message: "Internal server error"
+        })
+    }
+}
